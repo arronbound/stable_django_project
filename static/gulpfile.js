@@ -27,15 +27,11 @@ gulp.task('vendor', function() {
     ])
     .pipe(gulp.dest('./vendor/bootstrap'))
 
-  // Font Awesome
+  // Font Awesome 5
   gulp.src([
-      './node_modules/font-awesome/**/*',
-      '!./node_modules/font-awesome/{less,less/*}',
-      '!./node_modules/font-awesome/{scss,scss/*}',
-      '!./node_modules/font-awesome/.*',
-      '!./node_modules/font-awesome/*.{txt,json,md}'
+      './node_modules/@fortawesome/**/*'
     ])
-    .pipe(gulp.dest('./vendor/font-awesome'))
+    .pipe(gulp.dest('./vendor'))
 
   // jQuery
   gulp.src([
@@ -50,18 +46,6 @@ gulp.task('vendor', function() {
     ])
     .pipe(gulp.dest('./vendor/jquery-easing'))
 
-  // Magnific Popup
-  gulp.src([
-      './node_modules/magnific-popup/dist/*'
-    ])
-    .pipe(gulp.dest('./vendor/magnific-popup'))
-
-  // Scrollreveal
-  gulp.src([
-      './node_modules/scrollreveal/dist/*.js'
-    ])
-    .pipe(gulp.dest('./vendor/scrollreveal'))
-
 });
 
 // Compile SCSS
@@ -70,6 +54,9 @@ gulp.task('css:compile', function() {
     .pipe(sass.sync({
       outputStyle: 'expanded'
     }).on('error', sass.logError))
+    .pipe(header(banner, {
+      pkg: pkg
+    }))
     .pipe(gulp.dest('./css'))
 });
 
@@ -99,6 +86,9 @@ gulp.task('js:minify', function() {
     .pipe(uglify())
     .pipe(rename({
       suffix: '.min'
+    }))
+    .pipe(header(banner, {
+      pkg: pkg
     }))
     .pipe(gulp.dest('./js'))
     .pipe(browserSync.stream());

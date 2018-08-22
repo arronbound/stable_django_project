@@ -24,5 +24,5 @@ from stable_project.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('events',EventCreate.as_view()),
+    path('',EventCreate.as_view()),
     ]
