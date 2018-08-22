@@ -171,5 +171,9 @@
     <script src="../../static/js/creative.min.js"></script>
 
   </body>
-
+  <form method="post">{% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Save">
+  </form>
+  
 </html>
